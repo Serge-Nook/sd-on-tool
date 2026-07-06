@@ -1,4 +1,8 @@
-"""Аудиоплеер для интернет-радио. Использует mpv или ffplay."""
+"""Аудиоплеер для интернет-радио.
+
+Поддерживает mpv, ffplay, gst-play-1.0.
+Корректно обрабатывает потоки AAC+ (.aacp).
+"""
 
 import shutil
 import subprocess
@@ -28,7 +32,7 @@ class RadioPlayer(QObject):
 
     @staticmethod
     def _detect_player() -> str:
-        for player in ("mpv", "ffplay"):
+        for player in ("mpv", "ffplay", "gst-play-1.0"):
             if shutil.which(player):
                 return player
         return "mpv"
@@ -40,26 +44,53 @@ class RadioPlayer(QObject):
         self._should_reconnect = True
         self._start_playback()
 
+    @staticmethod
+    def _is_aacp_stream(url: str) -> bool:
+        lower = url.lower()
+        return lower.endswith(".aacp") or lower.endswith(".aac") or "aacp" in lower
+
+    def _build_command(self) -> list[str]:
+        url = self._current_url
+        is_aacp = self._is_aacp_stream(url)
+
+        if self._player_cmd == "mpv":
+            cmd = [
+                "mpv",
+                "--no-video",
+                "--no-terminal",
+                f"--volume={self._volume}",
+                "--network-timeout=10",
+                "--demuxer-readahead-secs=5",
+                "--demuxer=lavf",
+                "--user-agent=SD-ON-Tool/1.0",
+            ]
+            if is_aacp:
+                cmd.extend([
+                    "--demuxer-lavf-format=aac",
+                    "--demuxer-lavf-o=live_start_index=-1",
+                ])
+            cmd.append(url)
+            return cmd
+
+        if self._player_cmd == "ffplay":
+            cmd = [
+                "ffplay",
+                "-nodisp",
+                "-autoexit",
+                "-volume", str(self._volume),
+                "-user_agent", "SD-ON-Tool/1.0",
+            ]
+            if is_aacp:
+                cmd.extend(["-f", "aac"])
+            cmd.append(url)
+            return cmd
+
+        # gst-play-1.0
+        return ["gst-play-1.0", "--volume", str(self._volume / 100.0), url]
+
     def _start_playback(self):
         try:
-            if self._player_cmd == "mpv":
-                cmd = [
-                    "mpv",
-                    "--no-video",
-                    "--no-terminal",
-                    f"--volume={self._volume}",
-                    "--network-timeout=10",
-                    "--demuxer-readahead-secs=5",
-                    self._current_url,
-                ]
-            else:
-                cmd = [
-                    "ffplay",
-                    "-nodisp",
-                    "-autoexit",
-                    "-volume", str(self._volume),
-                    self._current_url,
-                ]
+            cmd = self._build_command()
 
             self._process = subprocess.Popen(
                 cmd,
