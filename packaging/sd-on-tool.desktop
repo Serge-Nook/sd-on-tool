@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=SD-ON Tool
+Comment=Автономное приложение настройки Steam Deck
+Exec=SD-ON-Tool
+Icon=sd-on-tool
+Categories=Utility;System;
+Terminal=false
+StartupWMClass=SD-ON Tool

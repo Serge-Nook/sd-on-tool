@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "theme": "SD-ON Theme",
+  "saturation": 100,
+  "radio": {
+    "volume": 70,
+    "last_station": "",
+    "custom_stations": []
+  }
+}
