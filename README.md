@@ -7,94 +7,79 @@
 ### 📻 Радио
 - 8 встроенных интернет-радиостанций
 - Поддержка MP3, AAC, AAC+, HTTP/HTTPS потоков
+- Воспроизведение через HTML5 `<audio>` — без дополнительного ПО
 - Добавление/удаление/редактирование пользовательских станций
 - Управление воспроизведением и громкостью
 - Автоматическое переподключение при обрыве
 
-### 🎨 Темы
-- 20 встроенных тем оформления интерфейса Steam Deck
-- Применение темы одним нажатием
-- Возврат к теме по умолчанию
-- Все темы работают автономно — загрузка из сети не требуется
-
-### 🖥 Цвета экрана
-- Расширенная настройка насыщенности (100% — 200%)
-- Быстрые пресеты
-- Аналог VibrantDeck
-- Изменения применяются мгновенно
-
 ### ℹ О программе
 - Версия, автор, сайт
 
+## Технологии
+
+- **Backend**: Java 17, встроенный HTTP-сервер (`com.sun.net.httpserver`)
+- **Frontend**: HTML5 / CSS / JavaScript
+- **Аудио**: HTML5 `<audio>` — проигрывание потоков как в браузере
+- **Упаковка**: AppImage с встроенным JRE (jlink)
+
 ## Установка
 
-### AppImage (рекомендуется)
+### Через установщик (рекомендуется)
 
 ```bash
-chmod +x SD-ON-Tool-1.0.0-x86_64.AppImage
-./SD-ON-Tool-1.0.0-x86_64.AppImage
+chmod +x SD-ON-Tool-Installer.sh
+./SD-ON-Tool-Installer.sh
 ```
 
-Или с помощью скрипта установки:
+Нажмите «Установить» — приложение установится и появится в меню.
+Для удаления запустите тот же файл и нажмите «Удалить».
+
+### AppImage
 
 ```bash
-chmod +x install.sh
-./install.sh SD-ON-Tool-1.0.0-x86_64.AppImage
+chmod +x SD-ON-Tool-1.1.0-x86_64.AppImage
+./SD-ON-Tool-1.1.0-x86_64.AppImage
 ```
 
 ### Из исходников
 
 ```bash
-# Зависимости
-pip install -r requirements.txt
-
-# На Steam Deck также нужен mpv для радио:
-sudo pacman -S mpv
-
-# Запуск
-python main.py
-```
-
-## Удаление
-
-```bash
-chmod +x packaging/uninstall.sh
-./packaging/uninstall.sh
+./gradlew jar
+java -jar build/libs/sd-on-tool-1.1.0.jar
 ```
 
 ## Сборка AppImage
 
 ```bash
-chmod +x packaging/build-appimage.sh
-./packaging/build-appimage.sh
+./gradlew jar
+jlink --add-modules java.base,java.desktop,java.net.http,java.logging,jdk.httpserver \
+      --strip-debug --no-man-pages --no-header-files --compress=2 --output build/jre
+# Далее: создание AppDir и appimagetool
 ```
-
-## Требования
-
-- **Платформа**: Steam Deck / SteamOS
-- **Python**: 3.10+
-- **PyQt5**: 5.15+
-- **mpv**: для воспроизведения радио
-- **xrandr**: для настройки насыщенности
 
 ## Структура проекта
 
 ```
 SD-ON Tool
-├── src/
-│   ├── core/          # Ядро: конфигурация, базовый модуль
-│   ├── ui/            # Интерфейс: окно, виджеты, стили
-│   ├── modules/
-│   │   ├── radio/     # Модуль интернет-радио
-│   │   ├── themes/    # Модуль тем оформления
-│   │   ├── display/   # Модуль цветов экрана
-│   │   └── about/     # Модуль «О программе»
-│   ├── assets/        # Ресурсы: иконки, шрифты
-│   └── config/        # Конфигурация по умолчанию
-├── packaging/         # Скрипты сборки и установки
-├── main.py            # Точка входа
-└── requirements.txt
+├── src/main/
+│   ├── java/ru/sdon/tool/
+│   │   ├── App.java           # Точка входа, запуск сервера + браузера
+│   │   ├── WebServer.java     # Встроенный HTTP-сервер
+│   │   ├── api/               # REST API (станции, конфигурация)
+│   │   └── model/             # Модели данных
+│   └── resources/web/
+│       ├── index.html          # Главная страница
+│       ├── css/style.css       # Стили
+│       └── js/app.js           # Клиентская логика + аудиоплеер
+├── packaging/                  # Скрипты сборки и установки
+├── build.gradle
+└── gradlew
 ```
+
+## Требования
+
+- Steam Deck / SteamOS
+- Дополнительные программы не требуются (JRE встроен в AppImage)
 
 ## Язык интерфейса
 

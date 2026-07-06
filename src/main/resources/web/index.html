@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SD-ON Tool</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Боковая панель -->
+        <nav id="sidebar">
+            <div class="logo">
+                <span class="logo-text">SD-ON</span>
+                <span class="logo-sub">Tool</span>
+            </div>
+            <div class="nav-separator"></div>
+            <button class="nav-btn active" data-page="radio">
+                <span class="nav-icon">📻</span>
+                <span class="nav-label">Радио</span>
+            </button>
+            <button class="nav-btn" data-page="about">
+                <span class="nav-icon">ℹ️</span>
+                <span class="nav-label">О программе</span>
+            </button>
+            <div class="sidebar-spacer"></div>
+            <div class="sidebar-version">v1.1.0</div>
+        </nav>
+
+        <!-- Контент -->
+        <main id="content">
+            <!-- Радио -->
+            <section id="page-radio" class="page active">
+                <h1 class="page-title">📻 Радио</h1>
+                <p class="page-subtitle">Интернет-радиостанции • MP3, AAC, AAC+</p>
+
+                <!-- Плеер -->
+                <div id="player-bar">
+                    <div id="player-status">⏹ Остановлено</div>
+                    <div id="player-controls">
+                        <button id="btn-play" class="ctrl-btn" title="Воспроизвести">▶</button>
+                        <button id="btn-pause" class="ctrl-btn" title="Пауза" style="display:none">⏸</button>
+                        <button id="btn-stop" class="ctrl-btn secondary" title="Стоп">⏹</button>
+                    </div>
+                </div>
+
+                <!-- Громкость -->
+                <div id="volume-bar">
+                    <span class="volume-label">Громкость</span>
+                    <input type="range" id="volume-slider" min="0" max="100" value="70">
+                    <span id="volume-value">70%</span>
+                </div>
+
+                <!-- Добавить станцию -->
+                <div class="add-bar">
+                    <button id="btn-add-station" class="btn secondary">+ Добавить станцию</button>
+                </div>
+
+                <!-- Список станций -->
+                <div id="stations-list"></div>
+
+                <!-- Скрытый audio элемент -->
+                <audio id="radio-audio" preload="none"></audio>
+            </section>
+
+            <!-- О программе -->
+            <section id="page-about" class="page">
+                <div class="about-container">
+                    <div class="about-logo">SD-ON</div>
+                    <div class="about-tool">Tool</div>
+                    <div class="about-card">
+                        <div class="about-row"><b>Версия программы:</b> 1.1.0</div>
+                        <div class="about-row"><b>Разработал:</b> Serge Nook</div>
+                        <div class="about-row"><b>Сайт:</b> <a href="https://sd-on.ru" target="_blank">SD-ON.RU</a></div>
+                        <div class="about-row"><b>Платформа:</b> Steam Deck / SteamOS</div>
+                        <div class="about-row"><b>Лицензия:</b> MIT</div>
+                    </div>
+                    <p class="about-desc">
+                        SD-ON Tool — автономное приложение для Steam Deck,<br>
+                        предоставляющее дополнительные возможности настройки<br>
+                        системы без использования сторонних плагинов.
+                    </p>
+                    <a href="https://sd-on.ru" target="_blank" class="btn secondary">Открыть SD-ON.RU</a>
+                    <div class="about-copy">© 2025 Serge Nook. Все права защищены.</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Модалка добавления/редактирования станции -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal">
+            <h2 id="modal-title">Добавить станцию</h2>
+            <label>Название станции:</label>
+            <input type="text" id="input-name" placeholder="Например: Моё радио">
+            <label>URL потока:</label>
+            <input type="text" id="input-url" placeholder="http:// или https://">
+            <p class="modal-hint">Поддерживаемые форматы: MP3, AAC, AAC+, HTTP/HTTPS</p>
+            <div class="modal-buttons">
+                <button id="btn-modal-cancel" class="btn secondary">Отмена</button>
+                <button id="btn-modal-save" class="btn primary">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
