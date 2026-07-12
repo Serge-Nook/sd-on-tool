@@ -1,0 +1,49 @@
+/*
+ * SD-ON Tool — тема «Glass».
+ * Локальный CSS-файл, внедряется в интерфейс Steam инъекцией стилей.
+ */
+:root {
+  --sdon-bg: #0f1420;
+  --sdon-panel: #182034;
+  --sdon-accent: #8fd3ff;
+  --sdon-text: #eaf4ff;
+  --sdon-muted: #7f93ad;
+}
+
+body,
+[class*="mainmenu"],
+[class*="quickaccessmenu"],
+[class*="QuickAccess"] {
+  background-color: var(--sdon-bg) !important;
+  color: var(--sdon-text) !important;
+}
+
+[class*="Panel"],
+[class*="Focusable"],
+[class*="Field"] {
+  background-color: var(--sdon-panel) !important;
+}
+
+a,
+[class*="Active"],
+[class*="Selected"] {
+  color: var(--sdon-accent) !important;
+}
+
+[class*="Muted"],
+[class*="Subtitle"] {
+  color: var(--sdon-muted) !important;
+}
+
+/* Акцент SD-ON Tool внутри собственной панели. */
+#sd-on-tool-root {
+  background: var(--sdon-bg) !important;
+  color: var(--sdon-text) !important;
+}
+#sd-on-tool-root .sd-tab.active {
+  box-shadow: inset 0 -2px 0 var(--sdon-accent) !important;
+  color: var(--sdon-text) !important;
+}
+#sd-on-tool-root .sd-btn:hover {
+  background: var(--sdon-accent) !important;
+}

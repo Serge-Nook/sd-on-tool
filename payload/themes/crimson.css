@@ -1,0 +1,49 @@
+/*
+ * SD-ON Tool — тема «Crimson».
+ * Локальный CSS-файл, внедряется в интерфейс Steam инъекцией стилей.
+ */
+:root {
+  --sdon-bg: #1a0808;
+  --sdon-panel: #2c0d0d;
+  --sdon-accent: #ff4d5e;
+  --sdon-text: #ffd8dc;
+  --sdon-muted: #a86b70;
+}
+
+body,
+[class*="mainmenu"],
+[class*="quickaccessmenu"],
+[class*="QuickAccess"] {
+  background-color: var(--sdon-bg) !important;
+  color: var(--sdon-text) !important;
+}
+
+[class*="Panel"],
+[class*="Focusable"],
+[class*="Field"] {
+  background-color: var(--sdon-panel) !important;
+}
+
+a,
+[class*="Active"],
+[class*="Selected"] {
+  color: var(--sdon-accent) !important;
+}
+
+[class*="Muted"],
+[class*="Subtitle"] {
+  color: var(--sdon-muted) !important;
+}
+
+/* Акцент SD-ON Tool внутри собственной панели. */
+#sd-on-tool-root {
+  background: var(--sdon-bg) !important;
+  color: var(--sdon-text) !important;
+}
+#sd-on-tool-root .sd-tab.active {
+  box-shadow: inset 0 -2px 0 var(--sdon-accent) !important;
+  color: var(--sdon-text) !important;
+}
+#sd-on-tool-root .sd-btn:hover {
+  background: var(--sdon-accent) !important;
+}
