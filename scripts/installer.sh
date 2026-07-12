@@ -12,7 +12,7 @@
 #
 set -euo pipefail
 
-VERSION="${SD_ON_TOOL_VERSION:-2.0.0}"
+VERSION="${SD_ON_TOOL_VERSION:-2.1.0}"
 
 # Директория дистрибутива (payload лежит рядом со scripts).
 DIST_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

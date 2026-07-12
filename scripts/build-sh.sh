@@ -11,7 +11,7 @@
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-VERSION="${SD_ON_TOOL_VERSION:-2.0.0}"
+VERSION="${SD_ON_TOOL_VERSION:-2.1.0}"
 OUT_DIR="$HERE/dist"
 OUT="$OUT_DIR/SD-ON-Tool-Installer.sh"
 
