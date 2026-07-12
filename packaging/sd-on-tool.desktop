@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=SD-ON Tool
+Comment=Радио, темы и цвета экрана для Steam Deck
+Comment[ru]=Радио, темы и цвета экрана для Steam Deck
+Exec=__EXEC__
+Icon=__ICON__
+Terminal=false
+Categories=Utility;AudioVideo;
+StartupNotify=true
+StartupWMClass=sd-on-tool

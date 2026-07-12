@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+#
+# SD-ON Tool — запуск автономного приложения.
+#
+# Открывает локальный UI (app/index.html) в отдельном окне браузера
+# (режим --app). Работает офлайн; никаких изменений интерфейса Steam.
+#
+set -euo pipefail
+
+# Каталог установки: рядом со скриптом (bin/..) либо стандартный путь.
+SELF_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+APP_ROOT="$(cd "$SELF_DIR/.." && pwd)"
+if [ ! -f "$APP_ROOT/app/index.html" ]; then
+  APP_ROOT="$HOME/.local/share/sd-on-tool"
+fi
+INDEX="$APP_ROOT/app/index.html"
+URL="file://$INDEX"
+
+if [ ! -f "$INDEX" ]; then
+  echo "Ошибка: не найден $INDEX. Переустановите SD-ON Tool." >&2
+  exit 1
+fi
+
+WIN_SIZE="1000,700"
+
+# Пытаемся открыть в окне-приложении подходящим браузером (по приоритету).
+try_app_window() {
+  local bin="$1"; shift
+  if command -v "$bin" >/dev/null 2>&1; then
+    exec "$bin" "$@" --app="$URL" --window-size="$WIN_SIZE" --class="sd-on-tool"
+  fi
+}
+
+try_flatpak_app() {
+  local appid="$1"
+  if command -v flatpak >/dev/null 2>&1 && flatpak info "$appid" >/dev/null 2>&1; then
+    exec flatpak run "$appid" --app="$URL" --window-size="$WIN_SIZE" --class="sd-on-tool"
+  fi
+}
+
+try_app_window chromium
+try_app_window chromium-browser
+try_app_window google-chrome-stable
+try_app_window google-chrome
+try_app_window brave-browser
+try_app_window microsoft-edge
+try_flatpak_app com.google.Chrome
+try_flatpak_app org.chromium.Chromium
+try_flatpak_app com.brave.Browser
+
+# Firefox — отдельное окно (без режима --app).
+if command -v firefox >/dev/null 2>&1; then
+  exec firefox --new-window "$URL"
+fi
+if command -v flatpak >/dev/null 2>&1 && flatpak info org.mozilla.firefox >/dev/null 2>&1; then
+  exec flatpak run org.mozilla.firefox --new-window "$URL"
+fi
+
+# Последний вариант — системный обработчик.
+if command -v xdg-open >/dev/null 2>&1; then
+  exec xdg-open "$URL"
+fi
+
+echo "Ошибка: не найден браузер для открытия приложения." >&2
+echo "Установите Chromium/Google Chrome (например, через Discover) и повторите." >&2
+exit 1

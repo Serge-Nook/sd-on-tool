@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Orange».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #1e1206;
+  --sdon-panel: #30200c;
+  --sdon-accent: #ff9a3c;
+  --sdon-text: #ffe6cc;
+  --sdon-muted: #b0895f;
+}

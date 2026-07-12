@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «SD-ON Theme».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #12141c;
+  --sdon-panel: #1c2030;
+  --sdon-accent: #ff7a18;
+  --sdon-text: #f0f2f8;
+  --sdon-muted: #8890a0;
+}

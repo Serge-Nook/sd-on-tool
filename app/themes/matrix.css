@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Matrix».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #000800;
+  --sdon-panel: #031803;
+  --sdon-accent: #00ff41;
+  --sdon-text: #c8ffce;
+  --sdon-muted: #3f9a52;
+}

@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Purple».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #150b24;
+  --sdon-panel: #241238;
+  --sdon-accent: #b46cff;
+  --sdon-text: #ecdcff;
+  --sdon-muted: #8a6aa8;
+}

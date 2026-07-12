@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Glass».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #0f1420;
+  --sdon-panel: #182034;
+  --sdon-accent: #8fd3ff;
+  --sdon-text: #eaf4ff;
+  --sdon-muted: #7f93ad;
+}

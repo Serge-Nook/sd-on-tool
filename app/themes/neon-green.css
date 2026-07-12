@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Neon Green».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #001108;
+  --sdon-panel: #052112;
+  --sdon-accent: #22ff88;
+  --sdon-text: #c9ffe0;
+  --sdon-muted: #4f9c74;
+}

@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Minimal».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #fafafa;
+  --sdon-panel: #ffffff;
+  --sdon-accent: #333333;
+  --sdon-text: #222222;
+  --sdon-muted: #888888;
+}

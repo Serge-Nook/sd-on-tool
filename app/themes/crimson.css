@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Crimson».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #1a0808;
+  --sdon-panel: #2c0d0d;
+  --sdon-accent: #ff4d5e;
+  --sdon-text: #ffd8dc;
+  --sdon-muted: #a86b70;
+}

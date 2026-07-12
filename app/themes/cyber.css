@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Cyber».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #0d0221;
+  --sdon-panel: #190a33;
+  --sdon-accent: #ff2fd6;
+  --sdon-text: #e6d6ff;
+  --sdon-muted: #8a5fb0;
+}

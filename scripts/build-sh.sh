@@ -21,12 +21,14 @@ mkdir -p "$OUT_DIR"
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 
-mkdir -p "$STAGE/scripts" "$STAGE/payload"
+mkdir -p "$STAGE/scripts" "$STAGE/bin" "$STAGE/packaging" "$STAGE/app"
 cp "$HERE/install.sh" "$STAGE/install.sh"
 cp "$HERE/scripts/installer.sh" "$STAGE/scripts/installer.sh"
 cp "$HERE/scripts/gen-themes.sh" "$STAGE/scripts/gen-themes.sh"
-cp -r "$HERE/payload/." "$STAGE/payload/"
-sed "s/__SD_ON_TOOL_VERSION__/$VERSION/g" "$HERE/payload/sd-on-tool.js" > "$STAGE/payload/sd-on-tool.js"
+cp "$HERE/bin/sd-on-tool" "$STAGE/bin/sd-on-tool"
+cp "$HERE/packaging/sd-on-tool.desktop" "$STAGE/packaging/sd-on-tool.desktop"
+cp -r "$HERE/app/." "$STAGE/app/"
+sed "s/__SD_ON_TOOL_VERSION__/$VERSION/g" "$HERE/app/app.js" > "$STAGE/app/app.js"
 printf '%s\n' "$VERSION" > "$STAGE/VERSION"
 
 # Заголовок-установщик: находит архив после маркера, распаковывает и

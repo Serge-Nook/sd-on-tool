@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Carbon».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #161616;
+  --sdon-panel: #222222;
+  --sdon-accent: #00b3a4;
+  --sdon-text: #e2e2e2;
+  --sdon-muted: #7d7d7d;
+}

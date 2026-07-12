@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# Генератор встроенных CSS-тем SD-ON Tool.
-# Создаёт 20 файлов в payload/themes/. Каждая тема — самодостаточный
-# локальный CSS-файл (загрузка из сети не используется).
+# Генератор встроенных CSS-тем SD-ON Tool (автономное приложение).
+# Создаёт 20 файлов в app/themes/. Каждая тема переопределяет CSS-переменные
+# --sdon-*, которые использует app.css. Загрузка из сети не используется.
 #
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OUT="$HERE/payload/themes"
+OUT="$HERE/app/themes"
 mkdir -p "$OUT"
 
 # Формат записи: "Имя|slug|bg|panel|accent|text|muted"
@@ -39,7 +39,7 @@ for entry in "${THEMES[@]}"; do
   cat > "$OUT/$slug.css" <<CSS
 /*
  * SD-ON Tool — тема «$name».
- * Локальный CSS-файл, внедряется в интерфейс Steam инъекцией стилей.
+ * Переопределяет переменные оформления автономного приложения.
  */
 :root {
   --sdon-bg: $bg;
@@ -47,44 +47,6 @@ for entry in "${THEMES[@]}"; do
   --sdon-accent: $accent;
   --sdon-text: $text;
   --sdon-muted: $muted;
-}
-
-body,
-[class*="mainmenu"],
-[class*="quickaccessmenu"],
-[class*="QuickAccess"] {
-  background-color: var(--sdon-bg) !important;
-  color: var(--sdon-text) !important;
-}
-
-[class*="Panel"],
-[class*="Focusable"],
-[class*="Field"] {
-  background-color: var(--sdon-panel) !important;
-}
-
-a,
-[class*="Active"],
-[class*="Selected"] {
-  color: var(--sdon-accent) !important;
-}
-
-[class*="Muted"],
-[class*="Subtitle"] {
-  color: var(--sdon-muted) !important;
-}
-
-/* Акцент SD-ON Tool внутри собственной панели. */
-#sd-on-tool-root {
-  background: var(--sdon-bg) !important;
-  color: var(--sdon-text) !important;
-}
-#sd-on-tool-root .sd-tab.active {
-  box-shadow: inset 0 -2px 0 var(--sdon-accent) !important;
-  color: var(--sdon-text) !important;
-}
-#sd-on-tool-root .sd-btn:hover {
-  background: var(--sdon-accent) !important;
 }
 CSS
 done

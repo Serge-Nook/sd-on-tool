@@ -1,0 +1,11 @@
+/*
+ * SD-ON Tool — тема «Steam Blue».
+ * Переопределяет переменные оформления автономного приложения.
+ */
+:root {
+  --sdon-bg: #171a21;
+  --sdon-panel: #1b2838;
+  --sdon-accent: #417a9b;
+  --sdon-text: #dfe3e6;
+  --sdon-muted: #8f98a0;
+}
